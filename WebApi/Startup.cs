@@ -34,7 +34,7 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddDbContext<SqlContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConexaoDB")));
+            services.AddDatabaseConfig(Configuration);
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
             services.AddAuthentication(x =>
             {

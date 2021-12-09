@@ -45,7 +45,8 @@ namespace WebApi.Controllers
                 return NotFound(new { mensagem = "Usuário não encontrado!" });
             }
         }
-        [HttpGet]
+
+        [HttpGet("authenticate")]
         public string Authenticate()
         {
             return String.Format("Autenticado - {0}", User.Identity.Name);
@@ -69,7 +70,7 @@ namespace WebApi.Controllers
             return Execute(() => _baseUserService.Update<UserValidator>(user));
         }
 
-        [HttpDelete("Delete/{id}")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             if (id == 0)

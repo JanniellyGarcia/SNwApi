@@ -44,8 +44,7 @@ namespace WebApi.Controllers
             return Execute(() => _baseCommentService.Update<CommentValidator>(comment));
         }
 
-        [HttpDelete("Delete/{id}")]
-        [Route("DeleteComment")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             if (id == 0)

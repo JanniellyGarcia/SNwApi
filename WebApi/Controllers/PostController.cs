@@ -60,7 +60,7 @@ namespace WebApi.Controllers
             return Execute(() => _basePostService.Update<PostValidator>(post));
         }
 
-        [HttpDelete("Delete/{id}")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             if (id == 0)
