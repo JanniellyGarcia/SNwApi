@@ -33,21 +33,22 @@ namespace WebApi.Controllers
         //Criar Post
         [HttpPost]
         [Route("CreatePost")]
-        public IActionResult Create([FromBody] Post post, [FromForm] IFormFile arquivo, int id)
+        public IActionResult Create([FromBody] Post post, [FromForm] FormFile arquivo )
         {
-            if (post == null)
+            if (post == null )
                 return NotFound();
+
             if (arquivo.Length > 0)
             {
                 post.Path = "C:\\images\\";
                 post.Type = "image/jpg";
                 post.Image = arquivo.FileName;
-                _postService.uploadImagem(arquivo, id);
+                _postService.uploadImagem(arquivo, post.Id);
             }
+
             return Execute(() => _basePostService.Add<PostValidator>(post).Id);
         }
-
-
+      
 
 
         //atualizar post

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public interface IChatRepository 
+    public interface INewRepository
     {
-        IEnumerable<Chat> GetChat();
-        Chat GetById(int Id);
+        IEnumerable<News> GetNews();
+        News GetById(int id);
     }
 }

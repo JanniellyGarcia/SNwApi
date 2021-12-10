@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20211207162132_addClasses")]
-    partial class addClasses
+    [Migration("20211210175115_add_classes")]
+    partial class add_classes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,45 @@ namespace Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Domain.Models.Chat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Create")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdEmissor")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdReceptor")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IdUser1Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IdUser2Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Update")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("mensagem")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(1000)")
+                        .HasColumnName("Mensagens");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdUser1Id");
+
+                    b.HasIndex("IdUser2Id");
+
+                    b.ToTable("Chats");
+                });
 
             modelBuilder.Entity("Domain.Models.Comment", b =>
                 {
@@ -127,6 +166,56 @@ namespace Data.Migrations
                     b.ToTable("Likes");
                 });
 
+            modelBuilder.Entity("Domain.Models.News", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Categoria");
+
+                    b.Property<DateTime>("Create")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Data");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Imagem");
+
+                    b.Property<string>("Informations")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Informacoes");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Caminho");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Tipo");
+
+                    b.Property<string>("TypeImage")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("TipoImage");
+
+                    b.Property<DateTime>("Update")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("News");
+                });
+
             modelBuilder.Entity("Domain.Models.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -175,7 +264,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("Create")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 12, 7, 13, 21, 32, 110, DateTimeKind.Local).AddTicks(5933))
+                        .HasDefaultValue(new DateTime(2021, 12, 10, 14, 51, 14, 654, DateTimeKind.Local).AddTicks(7661))
                         .HasColumnName("Create");
 
                     b.Property<string>("Email")
@@ -209,6 +298,21 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Domain.Models.Chat", b =>
+                {
+                    b.HasOne("Domain.Models.User", "IdUser1")
+                        .WithMany()
+                        .HasForeignKey("IdUser1Id");
+
+                    b.HasOne("Domain.Models.User", "IdUser2")
+                        .WithMany()
+                        .HasForeignKey("IdUser2Id");
+
+                    b.Navigation("IdUser1");
+
+                    b.Navigation("IdUser2");
                 });
 
             modelBuilder.Entity("Domain.Models.Comment", b =>

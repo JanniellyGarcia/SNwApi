@@ -35,6 +35,7 @@ namespace WebApi
         {
             services.AddCors();
             services.AddDatabaseConfig(Configuration);
+            
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
             services.AddAuthentication(x =>
             {
@@ -83,13 +84,15 @@ namespace WebApi
                 });
             });
 
+
             services.AddDependencyInjectionConfig();
             services.AddAutoMapperConfig();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddFile("C:\\logger\\logger.txt");
             
             if (env.IsDevelopment())
             {
@@ -106,6 +109,7 @@ namespace WebApi
                .AllowAnyOrigin()
                .AllowAnyMethod()
                .AllowAnyHeader());
+        
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -113,6 +117,7 @@ namespace WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                
             });
         }
     }

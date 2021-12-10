@@ -12,6 +12,7 @@ namespace WebApi.Configuration
     {
         public static void AddAutoMapperConfig(this IServiceCollection services)
            => services.AddAutoMapper(Assembly.GetAssembly(typeof(AutoMapperProfile)));
+        
     }
 }
 

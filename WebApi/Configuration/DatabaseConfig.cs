@@ -19,6 +19,9 @@ namespace WebApi.Configuration
         {
             services.AddDbContext<SqlContext>(options => options.UseSqlServer(configuration.GetConnectionString("ConexaoDB"))
                             .LogTo(_logStream.WriteLine));
+
+
         }
+        
     }
 }

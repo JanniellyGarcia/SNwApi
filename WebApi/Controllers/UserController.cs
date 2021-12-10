@@ -89,6 +89,7 @@ namespace WebApi.Controllers
 
         public IActionResult Get()
         {
+            _logger.LogInformation("Teste");
             return Execute(() => _baseUserService.Get());
         }
 
@@ -112,6 +113,7 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError("Error" + ex.Message);
                 return BadRequest(ex.Message);
             }
         }

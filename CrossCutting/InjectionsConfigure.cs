@@ -33,6 +33,15 @@ namespace CrossCutting.InjectionsConfigure
             //Comment
             services.AddScoped(typeof(ICommentRepository), typeof(CommentRepository));
             services.AddScoped(typeof(ICommentService), typeof(CommnetService));
+            //Chat
+            services.AddScoped(typeof(IChatRepository), typeof(ChatRepository));
+            services.AddScoped(typeof(IChatService), typeof(ChatService));
+            //News
+            services.AddScoped(typeof(INewRepository), typeof(NewsRepository));
+            services.AddScoped(typeof(INewsService), typeof(NewsService));
+
+
+
 
         }
     }

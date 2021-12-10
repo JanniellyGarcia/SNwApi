@@ -22,6 +22,8 @@ namespace Data.Context
         public DbSet<Post> Posts { get; set; }
         public DbSet<Deslike> Deslikes { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Chat> Chat { get; set; }
+        public DbSet<News> News { get; set; }
 
         //Mapeia as entidades:
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,9 +34,12 @@ namespace Data.Context
             modelBuilder.Entity<Like>(new LikeMap().Configure); // Mapeamento de like
             modelBuilder.Entity<Post>(new PostMap().Configure); // Mapeamento de post
             modelBuilder.Entity<Deslike>(new DeslikeMap().Configure); // Mapeamento de deslike
-            modelBuilder.Entity<Comment>(new CommentMap().Configure); // Mapeamento de deslike
+            modelBuilder.Entity<Comment>(new CommentMap().Configure); // Mapeamento de Comment
+            modelBuilder.Entity<Chat>(new ChatMap().Configure); // Mapeamento de Chat
+            modelBuilder.Entity<News>(new NewsMap().Configure); // Mapeamento de News
             
 
         }
+       
     }
 }
