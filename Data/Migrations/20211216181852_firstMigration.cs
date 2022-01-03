@@ -3,51 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
-    public partial class add_classes : Migration
+    public partial class firstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<DateTime>(
-                name: "Create",
-                table: "Users",
-                type: "datetime2",
-                nullable: false,
-                defaultValue: new DateTime(2021, 12, 10, 14, 51, 14, 654, DateTimeKind.Local).AddTicks(7661),
-                oldClrType: typeof(DateTime),
-                oldType: "datetime2",
-                oldDefaultValue: new DateTime(2021, 12, 1, 14, 57, 49, 697, DateTimeKind.Local).AddTicks(4623));
-
-            migrationBuilder.CreateTable(
-                name: "Chats",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdReceptor = table.Column<int>(type: "int", nullable: false),
-                    IdUser1Id = table.Column<int>(type: "int", nullable: true),
-                    IdEmissor = table.Column<int>(type: "int", nullable: false),
-                    IdUser2Id = table.Column<int>(type: "int", nullable: true),
-                    Mensagens = table.Column<string>(type: "VARCHAR(1000)", nullable: false),
-                    Create = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Update = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Chats", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Chats_Users_IdUser1Id",
-                        column: x => x.IdUser1Id,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Chats_Users_IdUser2Id",
-                        column: x => x.IdUser2Id,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateTable(
                 name: "News",
                 columns: table => new
@@ -70,12 +29,65 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Email = table.Column<string>(type: "varchar(50)", nullable: false),
+                    senha = table.Column<string>(type: "varchar(100)", nullable: false),
+                    NúmerodeTelefone = table.Column<string>(name: "Número de Telefone", type: "varchar(100)", nullable: false),
+                    BirthDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Validaçãodesenha = table.Column<string>(name: "Validação de senha", type: "varchar(100)", nullable: false),
+                    Create = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 12, 16, 15, 18, 51, 447, DateTimeKind.Local).AddTicks(7995)),
+                    Update = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Chats",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ReceptorId = table.Column<int>(type: "int", nullable: false),
+                    User1IdId = table.Column<int>(type: "int", nullable: true),
+                    EmissorId = table.Column<int>(type: "int", nullable: false),
+                    User2IdId = table.Column<int>(type: "int", nullable: true),
+                    Mensagens = table.Column<string>(type: "VARCHAR(1000)", nullable: false),
+                    Create = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Update = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Chats", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Chats_Users_User1IdId",
+                        column: x => x.User1IdId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Chats_Users_User2IdId",
+                        column: x => x.User2IdId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    userIdPost = table.Column<int>(type: "int", nullable: false),
+                    userIdId = table.Column<int>(type: "int", nullable: true),
                     Images = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Path = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -85,6 +97,12 @@ namespace Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Posts_Users_userIdId",
+                        column: x => x.userIdId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -94,10 +112,8 @@ namespace Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Comentario = table.Column<string>(type: "varchar(500)", nullable: true),
-                    IdPost = table.Column<int>(type: "int", nullable: false),
-                    IdPostagemId = table.Column<int>(type: "int", nullable: true),
-                    IdUser = table.Column<int>(type: "int", nullable: false),
-                    IdUsuárioId = table.Column<int>(type: "int", nullable: true),
+                    PostId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     Create = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Update = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -105,17 +121,17 @@ namespace Data.Migrations
                 {
                     table.PrimaryKey("PK_Comentarios", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comentarios_Posts_IdPostagemId",
-                        column: x => x.IdPostagemId,
+                        name: "FK_Comentarios_Posts_PostId",
+                        column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comentarios_Users_IdUsuárioId",
-                        column: x => x.IdUsuárioId,
+                        name: "FK_Comentarios_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,10 +140,8 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdPost = table.Column<int>(type: "int", nullable: false),
-                    IdPostagemId = table.Column<int>(type: "int", nullable: true),
-                    IdUser = table.Column<int>(type: "int", nullable: false),
-                    IdUsuárioId = table.Column<int>(type: "int", nullable: true),
+                    PostId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     Create = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Update = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -135,17 +149,17 @@ namespace Data.Migrations
                 {
                     table.PrimaryKey("PK_Deslikes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Deslikes_Posts_IdPostagemId",
-                        column: x => x.IdPostagemId,
+                        name: "FK_Deslikes_Posts_PostId",
+                        column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Deslikes_Users_IdUsuárioId",
-                        column: x => x.IdUsuárioId,
+                        name: "FK_Deslikes_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -154,10 +168,8 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdPost = table.Column<int>(type: "int", nullable: false),
-                    IdPostagemId = table.Column<int>(type: "int", nullable: true),
-                    IdUser = table.Column<int>(type: "int", nullable: false),
-                    IdUsuárioId = table.Column<int>(type: "int", nullable: true),
+                    PostId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     Create = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Update = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -165,58 +177,63 @@ namespace Data.Migrations
                 {
                     table.PrimaryKey("PK_Likes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Likes_Posts_IdPostagemId",
-                        column: x => x.IdPostagemId,
+                        name: "FK_Likes_Posts_PostId",
+                        column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Likes_Users_IdUsuárioId",
-                        column: x => x.IdUsuárioId,
+                        name: "FK_Likes_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Chats_IdUser1Id",
+                name: "IX_Chats_User1IdId",
                 table: "Chats",
-                column: "IdUser1Id");
+                column: "User1IdId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Chats_IdUser2Id",
+                name: "IX_Chats_User2IdId",
                 table: "Chats",
-                column: "IdUser2Id");
+                column: "User2IdId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comentarios_IdPostagemId",
+                name: "IX_Comentarios_PostId",
                 table: "Comentarios",
-                column: "IdPostagemId");
+                column: "PostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comentarios_IdUsuárioId",
+                name: "IX_Comentarios_UserId",
                 table: "Comentarios",
-                column: "IdUsuárioId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Deslikes_IdPostagemId",
+                name: "IX_Deslikes_PostId",
                 table: "Deslikes",
-                column: "IdPostagemId");
+                column: "PostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Deslikes_IdUsuárioId",
+                name: "IX_Deslikes_UserId",
                 table: "Deslikes",
-                column: "IdUsuárioId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Likes_IdPostagemId",
+                name: "IX_Likes_PostId",
                 table: "Likes",
-                column: "IdPostagemId");
+                column: "PostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Likes_IdUsuárioId",
+                name: "IX_Likes_UserId",
                 table: "Likes",
-                column: "IdUsuárioId");
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_userIdId",
+                table: "Posts",
+                column: "userIdId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -239,15 +256,8 @@ namespace Data.Migrations
             migrationBuilder.DropTable(
                 name: "Posts");
 
-            migrationBuilder.AlterColumn<DateTime>(
-                name: "Create",
-                table: "Users",
-                type: "datetime2",
-                nullable: false,
-                defaultValue: new DateTime(2021, 12, 1, 14, 57, 49, 697, DateTimeKind.Local).AddTicks(4623),
-                oldClrType: typeof(DateTime),
-                oldType: "datetime2",
-                oldDefaultValue: new DateTime(2021, 12, 10, 14, 51, 14, 654, DateTimeKind.Local).AddTicks(7661));
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

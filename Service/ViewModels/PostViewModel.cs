@@ -22,6 +22,10 @@ namespace Service.ViewModels
         [JsonPropertyName("Comentarios")]
         public List<CommentViewModel> CommentsDoPost { get; set; }
 
+        [JsonPropertyName("UserId")]
+        public int UserId { get; set; }
+        [JsonPropertyName("User_Id")]
+        public UserViewModel User_Id { get; set; }
         //about image:
         [JsonPropertyName("Imagem")]
         public string Image { get; set; }

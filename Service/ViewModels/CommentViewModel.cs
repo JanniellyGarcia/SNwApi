@@ -13,13 +13,13 @@ namespace Service.ViewModels
 
         public string Description_Comment { get; set; }
         [JsonPropertyName("IdentificadorPostagem")]
-        public int IdPost { get; set; }
-        [JsonPropertyName("Id_Post")]
-        public PostViewModel IdPostagem { get; set; }
+        public int PostId { get; set; }
+        [JsonPropertyName("PostId")]
+        public PostViewModel PostagemId { get; set; }
 
         [JsonPropertyName("IdentificadorUsuario")]
-        public int IdUser { get; set; }
-        [JsonPropertyName("Id_User")]
-        public UserViewModel IdUsuário { get; set; }
+        public int UserId { get; set; }
+        [JsonPropertyName("UserId")]
+        public UserViewModel UsuárioId { get; set; }
     }
 }

@@ -39,6 +39,7 @@ namespace Data.Context
             modelBuilder.Entity<News>(new NewsMap().Configure); // Mapeamento de News
             
 
+
         }
        
     }

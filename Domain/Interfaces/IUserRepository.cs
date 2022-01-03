@@ -11,5 +11,7 @@ namespace Domain.Interfaces
     {
         IEnumerable<User> GetUser();
         User GetById(int id);
+        User GetAllAuthentication(string emailAut, string senhaAut);
+        
     }
 }

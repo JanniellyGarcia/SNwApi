@@ -1,5 +1,6 @@
 ﻿using Domain.Interfaces;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Service.Validation;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
-
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CommnetController : Controller
@@ -86,6 +87,7 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError("Error" + ex.Message);
                 return BadRequest(ex.Message);
             }
         }

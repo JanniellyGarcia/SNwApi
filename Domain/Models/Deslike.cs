@@ -8,9 +8,9 @@ namespace Domain.Models
 {
     public class Deslike : BaseEntity
     {
-        public int IdPost { get; set; }
-        public Post IdPostagem { get; set; }
-        public int IdUser { get; set; }
-        public User IdUsuário { get; set; }
+        public int PostId { get; set; }
+        public Post PostagemId { get; set; }
+        public int UserId { get; set; }
+        public User UsuárioId { get; set; }
     }
 }

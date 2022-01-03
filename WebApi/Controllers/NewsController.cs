@@ -1,7 +1,10 @@
 ﻿using Domain.Interfaces;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Service.Interface;
 using Service.Validation;
 using System;
 using System.Collections.Generic;
@@ -10,31 +13,42 @@ using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class NewsController : Controller
     {
         private IBaseService<News> _baseNewsService;
+        private INewsService _newsService;
         private readonly ILogger<NewsController> _logger;
 
         public NewsController(IBaseService<News> baseNewsService
-            , ILogger<NewsController> logger)
+            , ILogger<NewsController> logger, INewsService newsService)
         {
+            _newsService = newsService;
             _baseNewsService = baseNewsService;
             _logger = logger;
         }
 
         [HttpPost]
         [Route("CreateNews")]
-        public IActionResult Create([FromBody] News news)
+        public IActionResult Create([FromForm] News news, [FromForm] IFormFile arquivo)
         {
             if (news == null)
                 return NotFound();
 
+            if (arquivo.Length > 0)
+            {
+                news.Path = "C:\\images\\";
+                news.TypeImage = "image/jpg";
+                news.Image = arquivo.FileName;
+                _newsService.uploadImagem(arquivo, news.Id);
+            }
+
             return Execute(() => _baseNewsService.Add<NewsValidator>(news).Id);
         }
         [HttpPut]
-        [Route("UpdateComment")]
+        [Route("UpdateNews")]
         public IActionResult Update([FromBody] News news)
         {
             if (news == null)
@@ -85,6 +99,7 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError("Error" + ex.Message);
                 return BadRequest(ex.Message);
             }
         }

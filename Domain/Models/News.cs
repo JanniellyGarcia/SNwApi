@@ -12,6 +12,7 @@ namespace Domain.Models
         public string Date { get; set; }
         public string Informations { get; set; }
         public string Category { get; set; }
+
         //about image:
         public string Image { get; set; }
         public string TypeImage { get; set; }

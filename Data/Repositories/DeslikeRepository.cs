@@ -21,8 +21,8 @@ namespace Data.Repositories
         public Deslike GetById(int id)
         {
             var obj = CurrentSet
-                .Include(x => x.IdUser)
-                .Include(x => x.IdPost)
+                .Include(x => x.UserId)
+                .Include(x => x.PostId)
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
             return obj;

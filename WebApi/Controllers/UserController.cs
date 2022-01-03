@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Service.Interface;
 using Service.Validation;
 using System;
 using System.Collections.Generic;
@@ -19,33 +20,71 @@ namespace WebApi.Controllers
     public class UserController : ControllerBase
     {
         private IBaseService<User> _baseUserService;
+        private IUserService _userService;
+       
         private readonly ILogger<UserController> _logger;
 
         public UserController(IBaseService<User> baseUserService
-            , ILogger<UserController> logger)
+            , ILogger<UserController> logger, IUserService userService)
         {
+            _userService = userService;
             _baseUserService = baseUserService;
             _logger = logger;
         }
-
-        [HttpPost]
-        [Route("Login")]
         [AllowAnonymous]
-        public async Task<ActionResult<dynamic>> Autenticacao(string login, string password)
+        [HttpPost]
+        [Route("login")]
+        public async Task<ActionResult<dynamic>> Authenticate([FromBody] User model)
         {
-            if(login == "teste" && password == "teste")
-            {
-                var user = new User();
-                user.Name = "Jannielly";
-                var token = TokenService.GenerateToken(user);
-                return new { token = token };
-            }
-            else
-            {
-                return NotFound(new { mensagem = "Usuário não encontrado!" });
-            }
-        }
 
+            
+            var user = _userService.GetUserForLogin(model.Email, model.Senha);
+
+            if (user == null)
+                return NotFound(new { message = "Usuário ou senha inválidos" });
+
+            var token = TokenService.GenerateToken(user);
+
+            user.Senha = "";
+
+            return new
+            {
+                user = user,
+                token = token
+            };
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("authenticateGeneric")]
+        public async Task<ActionResult<dynamic>> AuthenticateGeneric()
+        {
+
+          
+            var user = new User()
+            {
+                Id = 0,
+                Name = "Autenticado Generico",
+                Senha = "123456789"
+            };
+
+           
+            if (user == null)
+                return NotFound(new { message = "Usuário ou senha inválidos" });
+
+           
+            var token = TokenService.GenerateToken(user);
+
+            
+            user.Senha = "";
+
+            
+            return new
+            {
+                user = user,
+                token = token
+            };
+        }
+        [AllowAnonymous]
         [HttpGet("authenticate")]
         public string Authenticate()
         {
@@ -58,6 +97,7 @@ namespace WebApi.Controllers
         {
             if (user == null)
                 return NotFound();
+            
 
             return Execute(() => _baseUserService.Add<UserValidator>(user).Id);
         }
@@ -85,8 +125,8 @@ namespace WebApi.Controllers
             return new NoContentResult();
         }
 
+        [AllowAnonymous]
         [HttpGet]
-
         public IActionResult Get()
         {
             _logger.LogInformation("Teste");
@@ -102,7 +142,7 @@ namespace WebApi.Controllers
 
             return Execute(() => _baseUserService.GetById(id));
         }
-
+        
         private IActionResult Execute(Func<object> func)
         {
             try

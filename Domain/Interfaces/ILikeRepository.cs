@@ -10,6 +10,7 @@ namespace Domain.Interfaces
     public interface ILikeRepository
     {
         IEnumerable<Like> GetLikes();
+        IEnumerable<Like> GetLikesByDapper();
         Like GetById(int id);
     }
 }

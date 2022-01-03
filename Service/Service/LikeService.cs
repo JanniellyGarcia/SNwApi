@@ -23,7 +23,7 @@ namespace Service.Service
 
         public IEnumerable<LikeViewModel> GetLike()
         {
-            var like = _likeRepository.GetLikes();
+            var like = _likeRepository.GetLikesByDapper();
             return _mapper.Map<IEnumerable<LikeViewModel>>(like); //mapeado objetos de model para viewmodel
         }
     }

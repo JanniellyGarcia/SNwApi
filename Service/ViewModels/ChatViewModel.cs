@@ -9,17 +9,17 @@ namespace Service.ViewModels
 {
     public class ChatViewModel
     {
-        [JsonPropertyName("IdDoReceptor")]
-        public int IdReceptor { get; set; }
+        [JsonPropertyName("Receptor_Id")]
+        public int ReceptorId { get; set; }
 
-        [JsonPropertyName("IdUser1")]
-        public UserViewModel IdUser1 { get; set; }
+        [JsonPropertyName("User1_Id")]
+        public UserViewModel User1Id { get; set; }
 
-        [JsonPropertyName("IdDoEmissor")]
-        public int IdEmissor { get; set; }
+        [JsonPropertyName("Emissor_Id")]
+        public int EmissorId { get; set; }
 
-        [JsonPropertyName("IdUser1")]
-        public UserViewModel IdUser2 { get; set; }
+        [JsonPropertyName("User1Id")]
+        public UserViewModel User2Id { get; set; }
 
         //msg
         [JsonPropertyName("Mensagem")]

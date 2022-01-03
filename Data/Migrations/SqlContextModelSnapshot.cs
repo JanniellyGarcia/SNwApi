@@ -29,20 +29,20 @@ namespace Data.Migrations
                     b.Property<DateTime>("Create")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdEmissor")
+                    b.Property<int>("EmissorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdReceptor")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdUser1Id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdUser2Id")
+                    b.Property<int>("ReceptorId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Update")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("User1IdId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("User2IdId")
+                        .HasColumnType("int");
 
                     b.Property<string>("mensagem")
                         .IsRequired()
@@ -51,9 +51,9 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdUser1Id");
+                    b.HasIndex("User1IdId");
 
-                    b.HasIndex("IdUser2Id");
+                    b.HasIndex("User2IdId");
 
                     b.ToTable("Chats");
                 });
@@ -72,26 +72,20 @@ namespace Data.Migrations
                         .HasColumnType("varchar(500)")
                         .HasColumnName("Comentario");
 
-                    b.Property<int>("IdPost")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdPostagemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdUsuárioId")
+                    b.Property<int>("PostId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Update")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("IdPostagemId");
+                    b.HasIndex("PostId");
 
-                    b.HasIndex("IdUsuárioId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Comentarios");
                 });
@@ -106,26 +100,20 @@ namespace Data.Migrations
                     b.Property<DateTime>("Create")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdPost")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdPostagemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdUsuárioId")
+                    b.Property<int>("PostId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Update")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("IdPostagemId");
+                    b.HasIndex("PostId");
 
-                    b.HasIndex("IdUsuárioId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Deslikes");
                 });
@@ -140,26 +128,20 @@ namespace Data.Migrations
                     b.Property<DateTime>("Create")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdPost")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdPostagemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdUsuárioId")
+                    b.Property<int>("PostId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Update")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("IdPostagemId");
+                    b.HasIndex("PostId");
 
-                    b.HasIndex("IdUsuárioId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Likes");
                 });
@@ -244,7 +226,15 @@ namespace Data.Migrations
                     b.Property<DateTime>("Update")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("userIdId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("userIdPost")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("userIdId");
 
                     b.ToTable("Posts");
                 });
@@ -262,7 +252,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("Create")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 12, 10, 14, 51, 14, 654, DateTimeKind.Local).AddTicks(7661))
+                        .HasDefaultValue(new DateTime(2021, 12, 16, 15, 18, 51, 447, DateTimeKind.Local).AddTicks(7995))
                         .HasColumnName("Create");
 
                     b.Property<string>("Email")
@@ -300,62 +290,83 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Domain.Models.Chat", b =>
                 {
-                    b.HasOne("Domain.Models.User", "IdUser1")
+                    b.HasOne("Domain.Models.User", "User1Id")
                         .WithMany()
-                        .HasForeignKey("IdUser1Id");
+                        .HasForeignKey("User1IdId");
 
-                    b.HasOne("Domain.Models.User", "IdUser2")
+                    b.HasOne("Domain.Models.User", "User2Id")
                         .WithMany()
-                        .HasForeignKey("IdUser2Id");
+                        .HasForeignKey("User2IdId");
 
-                    b.Navigation("IdUser1");
+                    b.Navigation("User1Id");
 
-                    b.Navigation("IdUser2");
+                    b.Navigation("User2Id");
                 });
 
             modelBuilder.Entity("Domain.Models.Comment", b =>
                 {
-                    b.HasOne("Domain.Models.Post", "IdPostagem")
+                    b.HasOne("Domain.Models.Post", "PostagemId")
                         .WithMany()
-                        .HasForeignKey("IdPostagemId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Domain.Models.User", "IdUsuário")
+                    b.HasOne("Domain.Models.User", "UsuárioId")
                         .WithMany()
-                        .HasForeignKey("IdUsuárioId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("IdPostagem");
+                    b.Navigation("PostagemId");
 
-                    b.Navigation("IdUsuário");
+                    b.Navigation("UsuárioId");
                 });
 
             modelBuilder.Entity("Domain.Models.Deslike", b =>
                 {
-                    b.HasOne("Domain.Models.Post", "IdPostagem")
+                    b.HasOne("Domain.Models.Post", "PostagemId")
                         .WithMany()
-                        .HasForeignKey("IdPostagemId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Domain.Models.User", "IdUsuário")
+                    b.HasOne("Domain.Models.User", "UsuárioId")
                         .WithMany()
-                        .HasForeignKey("IdUsuárioId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("IdPostagem");
+                    b.Navigation("PostagemId");
 
-                    b.Navigation("IdUsuário");
+                    b.Navigation("UsuárioId");
                 });
 
             modelBuilder.Entity("Domain.Models.Like", b =>
                 {
-                    b.HasOne("Domain.Models.Post", "IdPostagem")
+                    b.HasOne("Domain.Models.Post", "Postagem")
                         .WithMany()
-                        .HasForeignKey("IdPostagemId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Models.User", "IdUsuário")
                         .WithMany()
-                        .HasForeignKey("IdUsuárioId");
-
-                    b.Navigation("IdPostagem");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("IdUsuário");
+
+                    b.Navigation("Postagem");
+                });
+
+            modelBuilder.Entity("Domain.Models.Post", b =>
+                {
+                    b.HasOne("Domain.Models.User", "userId")
+                        .WithMany()
+                        .HasForeignKey("userIdId");
+
+                    b.Navigation("userId");
                 });
 #pragma warning restore 612, 618
         }

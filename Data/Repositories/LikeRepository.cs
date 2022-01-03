@@ -1,4 +1,5 @@
-﻿using Data.Context;
+﻿using Dapper;
+using Data.Context;
 using Domain.Interfaces;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
@@ -19,8 +20,8 @@ namespace Data.Repositories
         public Like GetById(int id)
         {
             var obj = CurrentSet
-                .Include(x => x.IdUser)
-                .Include(x => x.IdPost)
+                .Include(x => x.UserId)
+                .Include(x => x.PostId)
                 .Where(x => x.Id == id) 
                 .FirstOrDefault(); 
             return obj;
@@ -31,6 +32,12 @@ namespace Data.Repositories
             var obj = CurrentSet
                  .ToList();
             return obj;
+        }
+
+        public IEnumerable<Like> GetLikesByDapper()
+        {
+            var obj = _sqlContext.Database.GetDbConnection().Query<Like>("SELECT * FROM Likes").ToList();
+            return (IEnumerable<Like>)obj;
         }
     }
 }

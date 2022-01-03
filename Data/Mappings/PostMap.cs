@@ -37,6 +37,8 @@ namespace Data.Mappings
 
             builder.Property(prop => prop.Type)
                    .HasColumnName("Type");
+            
+
 
 
 

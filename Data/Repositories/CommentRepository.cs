@@ -18,8 +18,8 @@ namespace Data.Repositories
         public Comment GetById(int Id)
         {
             var obj = CurrentSet
-                .Include(x => x.IdUser)
-                .Include(x => x.IdPost)
+                .Include(x => x.UserId)
+                .Include(x => x.PostId)
                 .Where(x => x.Id == Id)
                 .FirstOrDefault();
             return obj;

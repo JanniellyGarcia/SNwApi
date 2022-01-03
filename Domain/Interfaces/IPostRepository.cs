@@ -11,6 +11,7 @@ namespace Domain.Interfaces
     {
         IEnumerable<Post> GetPost();
         Post GetById(int id);
+        int GetLikeDoPost();
 
     }
 }

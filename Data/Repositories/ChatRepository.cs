@@ -20,8 +20,8 @@ namespace Data.Repositories
         public Chat GetById(int Id)
         {
             var obj = CurrentSet
-                .Include(x => x.IdEmissor)
-                .Include(x => x.IdReceptor)
+                .Include(x => x.EmissorId)
+                .Include(x => x.ReceptorId)
                 .Where(x => x.Id == Id)
                 .FirstOrDefault();
             return obj;

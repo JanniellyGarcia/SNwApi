@@ -15,6 +15,15 @@ namespace Data.Repositories
         {
 
         }
+
+        public User GetAllAuthentication(string emailAut, string senhaAut)
+        {
+            var obj = CurrentSet
+                         .Where(x => x.Email == emailAut && x.Senha == senhaAut)
+                         .FirstOrDefault();
+            return obj;
+        }
+
         public User GetById(int id)
         {
             var obj = CurrentSet
@@ -23,6 +32,7 @@ namespace Data.Repositories
             return obj;
             
         }
+        
 
         public IEnumerable<User> GetUser()
         {

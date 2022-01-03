@@ -8,10 +8,10 @@ namespace Domain.Models
 {
     public class Chat : BaseEntity
     {
-        public int IdReceptor { get; set; }
-        public User IdUser1{ get; set; }
-        public int IdEmissor { get; set; }
-        public User IdUser2 { get; set; }
+        public int ReceptorId { get; set; }
+        public User User1Id { get; set; }
+        public int EmissorId { get; set; }
+        public User User2Id { get; set; }
 
         //msg
         public string mensagem { get; set; }

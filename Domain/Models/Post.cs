@@ -12,6 +12,8 @@ namespace Domain.Models
         public List<Like> LikesDoPost { get; set; }
         public List<Deslike> DeslikesDoPost { get; set; }
         public List<Comment> CommentsDoPost { get; set; }
+        public int userIdPost { get; set; }
+        public User userId { get; set; }
 
         //about image:
         public string Image { get; set; }
