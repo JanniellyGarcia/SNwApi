@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1- Application", "1- Application", "{15C3232F-4C0D-4BBE-A0D3-95B30139452A}"
 EndProject
@@ -11,19 +11,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3- Domain", "3- Domain", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4- Infra", "4- Infra", "{4AD1B23D-E2A8-44C6-B932-97B00F7C3471}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{59936893-6434-40B2-A17E-95F67C93D566}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{59936893-6434-40B2-A17E-95F67C93D566}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{2036B5CE-E110-4425-93B4-1681D334FF4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{2036B5CE-E110-4425-93B4-1681D334FF4E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1-Data", "4.1-Data", "{FA26222F-8426-434F-9B3D-E5844CCF606E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.2- CrossCutting", "4.2- CrossCutting", "{4870B3DE-FB3E-4A48-BDE3-9C91B7B66E2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{F4E3B061-0CCB-437C-B6E2-6C12BB5AE558}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{F4E3B061-0CCB-437C-B6E2-6C12BB5AE558}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCutting", "CrossCutting\CrossCutting.csproj", "{FAB327BE-B82F-4BA3-90F3-838FFD1948C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossCutting", "CrossCutting\CrossCutting.csproj", "{FAB327BE-B82F-4BA3-90F3-838FFD1948C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{9C2D04AD-1F2A-4BB1-9478-0BD3C3142B8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{9C2D04AD-1F2A-4BB1-9478-0BD3C3142B8A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5- Teste", "5- Teste", "{33329A18-228A-4CEE-8FE8-DF56BE6B0AD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesteApi", "TesteApi\TesteApi.csproj", "{EA52376C-7257-4DE5-A0C2-E54D6B30C810}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +55,10 @@ Global
 		{9C2D04AD-1F2A-4BB1-9478-0BD3C3142B8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C2D04AD-1F2A-4BB1-9478-0BD3C3142B8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C2D04AD-1F2A-4BB1-9478-0BD3C3142B8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA52376C-7257-4DE5-A0C2-E54D6B30C810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA52376C-7257-4DE5-A0C2-E54D6B30C810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA52376C-7257-4DE5-A0C2-E54D6B30C810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA52376C-7257-4DE5-A0C2-E54D6B30C810}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +71,7 @@ Global
 		{F4E3B061-0CCB-437C-B6E2-6C12BB5AE558} = {FA26222F-8426-434F-9B3D-E5844CCF606E}
 		{FAB327BE-B82F-4BA3-90F3-838FFD1948C1} = {4870B3DE-FB3E-4A48-BDE3-9C91B7B66E2F}
 		{9C2D04AD-1F2A-4BB1-9478-0BD3C3142B8A} = {15C3232F-4C0D-4BBE-A0D3-95B30139452A}
+		{EA52376C-7257-4DE5-A0C2-E54D6B30C810} = {33329A18-228A-4CEE-8FE8-DF56BE6B0AD5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {58104A24-90F1-4368-BAC5-36CC0058669F}

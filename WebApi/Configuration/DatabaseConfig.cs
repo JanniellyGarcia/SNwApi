@@ -13,12 +13,12 @@ namespace WebApi.Configuration
 {
     public static class DatabaseConfig
     {
-        public static StreamWriter _logStream =  new StreamWriter("C:\\loger\\loger.txt", append:true);
+        //public static StreamWriter _logStream =  new StreamWriter("C:\\loger\\loger.txt", append:true);
 
         public static void AddDatabaseConfig (this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<SqlContext>(options => options.UseSqlServer(configuration.GetConnectionString("ConexaoDB"))
-                            .LogTo(_logStream.WriteLine));
+            services.AddDbContext<SqlContext>(options => options.UseSqlServer(configuration.GetConnectionString("ConexaoDB")));
+                            //.LogTo(_logStream.WriteLine));
 
 
         }
